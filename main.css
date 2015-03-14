@@ -1,0 +1,36 @@
+body {
+	background-color: mediumaquamarine;
+}
+
+.container{
+	margin-top: 100px;
+	margin-left: 650px;
+	width: 560px;
+}
+
+.gridrow {
+	height: 75px;
+	padding: 5px;
+	background-color: blue;
+}
+
+.gridcell {
+	height:75px;
+	width: 75px;
+	background-color: mediumaquamarine;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.piece1{
+	background-color: red;
+}
+
+.piece2{
+	background-color: black;
+}
+
+#undo{
+	margin-top: 50px;
+	margin-left: 500px;
+}
