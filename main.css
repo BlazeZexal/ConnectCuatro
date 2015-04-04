@@ -6,6 +6,8 @@ body {
 	margin-top: 100px;
 	margin-left: 650px;
 	width: 560px;
+	user-select:none;
+	-webkit-user-select:none;
 }
 
 .gridrow {

@@ -45,27 +45,38 @@ $(document).ready(function() {
 
 	$("#undo").click(function(){
 		$(history.pop()).removeClass("piece1 piece2 clicked");
+		if (turn == 1)
+					turn++;
+				else
+					turn--;
 	});
 
 	$("#reset").click( function(){
 		$(".gridcell").removeClass("piece1 piece2 clicked");
+		turn = 1
 	});
 
 	function canHasWin(curColumn, curRow) {
 		var start = board[curRow][curColumn];
 		if(checkUpDown(start)){
 			console.log('YOU WIN!');
+		}else if(checkLeftRight(start)){
+			console.log('YOU WIN');
+		}else if(checkUpLeftandDownRight(start)){
+			console.log('YOU WIN');
+		}else if(checkUpRightandDownLeft(start)){
+			console.log('YOU WIN');
 		}
 
 		function checkUpDown(start){
-			var numFound = 1;
+			var numFound = 0;
 			for(i=curRow; i>0; --i){
 				if(board[i][curColumn]==start)
 					numFound++;
 				else
 					break;
 			}
-			for (i=curRow; i<board.length; ++i){
+			for(i=curRow+1; i<board.length; ++i){
 				if(board[i][curColumn]==start)
 					numFound++;
 				else
@@ -73,6 +84,63 @@ $(document).ready(function() {
 			}
 
 			return (numFound >= 4);
+		}
+
+		function checkLeftRight(start) {
+			var numFound = 0;
+			for(i=curColumn; i>0; --i){
+				if(board[curRow][i]==start)
+					numFound++;
+				else
+					break;	
+			}
+			for(i=curColumn+1; i<board[curRow].length; ++i){
+				if(board[curRow][i]==start)
+					numFound++
+				else
+					break;
+			}
+
+			return (numFound >=4);
+		}
+		//Diagonals are checked, function names are confusing
+		function checkUpLeftandDownRight(start) {
+			numFound = -1; //This is a little "hacky", if problems occur, change it
+			for(i=0; i<4; ++i){
+				if(board[curRow+i] !== undefined){
+					if(board[curRow+i][curColumn+i]==start)
+						numFound++;
+				}
+				if(board[curRow-i] !== undefined){
+					if(board[curRow-i][curColumn-i]==start)
+						numFound++;
+				}
+			}
+
+			return (numFound>=4);
+		}
+
+		function checkUpRightandDownLeft(start) {
+			console.log('CHECKUPRIGHTANDDOWNLEFT FOR '+start);
+			numFound = -1;
+			for (i=0; i<4; ++i){
+				if(board[curRow-i] !== undefined){
+					console.info('checking up and right');
+					if(board[curRow-i][curColumn+i]==start){
+						console.info('found');
+						numFound++;
+					}
+				}
+				if(board[curRow+i] !== undefined){
+					console.info('checking down and left');
+					if(board[curRow+i][curColumn-i]==start){
+						console.info('found');
+						numFound++;
+					}
+				}
+			}
+			console.log('FOUND = '+numFound);
+			return (numFound>=4);
 		}
 	}
 
