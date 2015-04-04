@@ -45,6 +45,8 @@ $(document).ready(function() {
 
 	$("#undo").click(function(){
 		$(history.pop()).removeClass("piece1 piece2 clicked");
+		$(".victory1").addClass("hidden");
+		$(".victory2").addClass("hidden");
 		if (turn == 1)
 					turn++;
 				else
@@ -53,19 +55,39 @@ $(document).ready(function() {
 
 	$("#reset").click( function(){
 		$(".gridcell").removeClass("piece1 piece2 clicked");
+		$(".victory1").addClass("hidden");
+		$(".victory2").addClass("hidden");
 		turn = 1
 	});
 
 	function canHasWin(curColumn, curRow) {
 		var start = board[curRow][curColumn];
 		if(checkUpDown(start)){
-			console.log('YOU WIN!');
+			if(turn == 2){
+				$(".victory1").removeClass("hidden");
+			}else if(turn == 1){
+				$(".victory2").removeClass("hidden");
+			}
 		}else if(checkLeftRight(start)){
-			console.log('YOU WIN');
+			if(turn == 2){
+				$(".victory1").removeClass("hidden");
+			}else if(turn == 1){
+				$(".victory2").removeClass("hidden");
+			}
 		}else if(checkUpLeftandDownRight(start)){
-			console.log('YOU WIN');
+			if(turn == 2){
+				$(".victory1").removeClass("hidden");
+			}else if(turn == 1){
+				$(".victory2").removeClass("hidden");
+			}
 		}else if(checkUpRightandDownLeft(start)){
-			console.log('YOU WIN');
+			if(turn == 2){
+				console.log("RED WINS!")
+				$(".victory1").removeClass("hidden");
+			}else if(turn == 1){
+				console.log("BLACK WINS!")
+				$(".victory2").removeClass("hidden");
+			}
 		}
 
 		function checkUpDown(start){
@@ -121,25 +143,18 @@ $(document).ready(function() {
 		}
 
 		function checkUpRightandDownLeft(start) {
-			console.log('CHECKUPRIGHTANDDOWNLEFT FOR '+start);
 			numFound = -1;
 			for (i=0; i<4; ++i){
 				if(board[curRow-i] !== undefined){
-					console.info('checking up and right');
 					if(board[curRow-i][curColumn+i]==start){
-						console.info('found');
 						numFound++;
 					}
 				}
 				if(board[curRow+i] !== undefined){
-					console.info('checking down and left');
-					if(board[curRow+i][curColumn-i]==start){
-						console.info('found');
-						numFound++;
+					if(board[curRow+i][curColumn-i]==start){						numFound++;
 					}
 				}
 			}
-			console.log('FOUND = '+numFound);
 			return (numFound>=4);
 		}
 	}

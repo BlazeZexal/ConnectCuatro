@@ -32,6 +32,18 @@ body {
 	background-color: black;
 }
 
+.victory1{
+	margin-left: 850px;
+	color: black;
+}
+.victory2{
+	margin-left: 850px;
+	color: black;
+}
+.hidden{
+	visibility: hidden;
+}
+
 #undo{
 	margin-top: 50px;
 	margin-left: 500px;
